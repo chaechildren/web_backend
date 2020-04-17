@@ -8,5 +8,7 @@ Database : MongoDB
 
 Server Url : https://wendsteam06.herokuapp.com/
 
-- [ ] /arduino/data => send All Data (type : json)
-- [ ] /phone/data => send All Data (type : json)
+## API Description
+
+- [x] /arduino/data => send All Data (type : json)
+- [x] /phone/data => send All Data (type : json)
