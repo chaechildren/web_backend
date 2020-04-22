@@ -12,3 +12,7 @@ Server Url : https://wendsteam06.herokuapp.com/
 
 - [x] /arduino/data => send All Data (type : json)
 - [x] /phone/data => send All Data (type : json)
+
+### Commit Record
+
+20.4.17
