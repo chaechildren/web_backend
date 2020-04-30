@@ -21,6 +21,7 @@ router.post("/login", async (req, res, next) => {
   } else {
     obj.resultCode = 300;
     obj.msg = "아이디가 존재하지 않습니다";
+    obj.email = "no email";
     res.json(obj);
   }
 });
