@@ -6,7 +6,7 @@ module.exports = () => {
       mongoose.set("debug", true);
     }
     mongoose.connect(
-      `mongodb+srv://${process.env.ACCOUNT_ID}:${process.env.ACCOUNT_PASSWORD}@cluster0-veilb.mongodb.net/test?retryWrites=true&w=majority`,
+      `mongodb+srv://cogmdtjr:cogmdtjr@cluster0-veilb.mongodb.net/test?retryWrites=true&w=majority`,
       {
         dbName: "Arduino",
         useNewUrlParser: true,
@@ -30,4 +30,5 @@ module.exports = () => {
     connect();
   });
   require("./Data");
+  require("./User");
 };

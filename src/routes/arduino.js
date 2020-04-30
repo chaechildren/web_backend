@@ -7,7 +7,13 @@ router.get("/data", async (req, res, next) => {
   res.json(datas);
 });
 
+// request로 들어온 데이터를 파싱해서 DB에 저장
 router.post("/data", async (req, res, next) => {
-  // 구현해야함
+  console.log(req.body);
+  const newData = new Data({ humidity: req.body.humidity });
+  await newData.save();
+  console.log("newData", newData);
+  res.json(newData);
 });
+
 module.exports = router;

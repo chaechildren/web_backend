@@ -7,4 +7,54 @@ router.get("/data", async (req, res, next) => {
   res.json(datas);
 });
 
+router.get("/rtdata/asc", async (req, res, next) => {
+  try {
+    const datas = await Data.find().sort({ createdAt: -1 }).limit(10);
+    console.log(typeof datas);
+    console.log(typeof datas[0]);
+    res.json(datas);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+function splitTime(timeStr) {
+  const _date = timeStr.substr(0, 14);
+  const _time = timeStr.substr(16, 8);
+  return { _date, _time };
+}
+router.get("/rtdata/desc", async (req, res, next) => {
+  try {
+    const datas = await Data.find().sort({ createdAt: 1 }).limit(10);
+    const processed_data = datas.map((data) => ({
+      date: splitTime(data.createdAt.toString())._date,
+      time: splitTime(data.createdAt.toString())._time,
+      origin: data.createdAt,
+      humidity: data.humidity,
+    }));
+    console.log(typeof processed_data);
+    console.log(typeof processed_data[0]);
+    res.json(processed_data);
+  } catch (err) {
+    console.log(err);
+    res.json({ time: "999", humidity: "1234" });
+  }
+});
+router.post("/rtdata/desc", async (req, res, next) => {
+  try {
+    const datas = await Data.find().sort({ createdAt: 1 }).limit(10);
+    const processed_data = datas.map((data) => ({
+      date: splitTime(data.createdAt.toString())._date,
+      time: splitTime(data.createdAt.toString())._time,
+      origin: data.createdAt,
+      humidity: data.humidity,
+    }));
+
+    res.json(processed_data);
+  } catch (err) {
+    console.log(err);
+    res.json({ time: "999", humidity: "1234" });
+  }
+});
+
 module.exports = router;
