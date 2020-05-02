@@ -32,17 +32,5 @@ router.post("/login", async (req, res, next) => {
     res.json({ resultCode: 400, msg: "로그인 오류... 네트워크 & DB 오류" });
   }
 });
-router.post("/register", async (req, res, next) => {
-  const { ID, PW, CONFIRMPW } = req.body;
-  try {
-    await User.create({
-      ID: ID,
-      PW: PW,
-    });
-    res.json({ resultCode: 200, msg: "회원가입 성공", email: ID });
-  } catch (err) {
-    console.log(err);
-    res.json({ resultCode: 300, msg: "회원가입 실패" });
-  }
-});
+
 module.exports = router;
