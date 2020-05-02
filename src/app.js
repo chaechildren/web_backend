@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
-//DB 연결
+//DB  연결
 const connect = require("./schema");
 connect();
 
