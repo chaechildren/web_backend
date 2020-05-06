@@ -25,7 +25,7 @@ function splitTime(timeStr) {
 }
 router.get("/rtdata/desc", async (req, res, next) => {
   try {
-    const datas = await Data.find().sort({ createdAt: 1 }).limit(10);
+    const datas = await Data.find().sort({ createdAt: -1 }).limit(10);
     const processed_data = datas.map((data) => ({
       date: splitTime(data.createdAt.toString())._date,
       time: splitTime(data.createdAt.toString())._time,
