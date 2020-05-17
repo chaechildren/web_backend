@@ -1,11 +1,7 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const User = require("../schema/User");
 const router = express.Router();
-router.get("/", async (req, res, next) => {
-  res.render("home", { test: "It works" });
-});
-
+const bcrypt = require("bcrypt");
+const User = require("../../schema/User");
 router.post("/login", async (req, res, next) => {
   // console.log(req);
 
@@ -33,6 +29,7 @@ router.post("/login", async (req, res, next) => {
     res.json({ resultCode: 400, msg: "로그인 오류... 네트워크 & DB 오류" });
   }
 });
+
 router.post("/register", async (req, res, next) => {
   const { ID, PW, CONFIRMPW } = req.body;
   //

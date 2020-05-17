@@ -8,7 +8,7 @@ module.exports = () => {
     mongoose.connect(
       `mongodb+srv://cogmdtjr:cogmdtjr@cluster0-veilb.mongodb.net/test?retryWrites=true&w=majority`,
       {
-        dbName: "Arduino",
+        dbName: "v2Test",
         useNewUrlParser: true,
         useUnifiedTopology: true,
       },
@@ -31,4 +31,5 @@ module.exports = () => {
   });
   require("./Data");
   require("./User");
+  require("./Arduino");
 };
