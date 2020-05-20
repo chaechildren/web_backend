@@ -1,6 +1,7 @@
 const express = require("express");
 const Data = require("../../schema/Data");
 const Arduino = require("../../schema/Arduino");
+const User = require("../../schema/User");
 const router = express.Router();
 
 function splitTime(timeStr) {
@@ -24,6 +25,28 @@ router.get("/data/:id", async (req, res, next) => {
     humidity: data.humidity,
   }));
   res.json(processed_data);
+});
+
+router.post("/connect", async (req, res, next) => {
+  const { arduino_id, user_id } = req.body;
+  try {
+    const _user = await User.findOne({ ID: user_id });
+    const _arduino = await Arduino.findOne({ ID: arduino_id });
+    console.log(arduino_id, user_id);
+    console.log("Alredy ardlist", _user.ARD_LIST);
+    await Arduino.update({ ID: arduino_id }, { user: _user._id });
+    await User.update(
+      { ID: user_id },
+      { ARD_LIST: [..._user.ARD_LIST, _arduino._id] }
+    );
+    res.json({ resultCode: 200, msg: "연결이 성공하였습니다 " });
+  } catch (err) {
+    console.log("유저 = 아두이노 연결 실패", err);
+    res.json({
+      resultCode: 300,
+      msg: "연동 에러 발생 확인 필요.. POST: phone/connect",
+    });
+  }
 });
 
 module.exports = router;
