@@ -66,5 +66,6 @@ router.post("/register", async (req, res, next) => {
     console.log(err);
     res.json({ resultCode: 300, msg: "회원가입 실패" });
   }
+  res.json({ resultCode: 310, msg: "이건 생기면안됨" });
 });
 module.exports = router;
