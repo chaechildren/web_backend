@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../../schema/User");
+
+router.get("/", async (req, res, next) => {
+  const allUser = await User.find({});
+  res.json({ userList: allUser });
+});
 router.post("/login", async (req, res, next) => {
   // console.log(req);
 
