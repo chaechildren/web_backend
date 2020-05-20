@@ -22,6 +22,7 @@ router.post("/login", async (req, res, next) => {
           resultCode: 200,
           msg: "로그인에 성공하였습니다",
           email: ID,
+          arduino: null,
         });
       } else {
         res.json({ resultCode: 301, msg: "비밀번호가 일치하지 않습니다" });
@@ -68,4 +69,5 @@ router.post("/register", async (req, res, next) => {
   }
   res.json({ resultCode: 310, msg: "이건 생기면안됨" });
 });
+
 module.exports = router;
