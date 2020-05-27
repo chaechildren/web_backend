@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const UserSchema = new Schema({
+  
   ID: { required: true, type: String, unique: true },
   PW: { required: true, type: String },
   ARD_LIST: [
