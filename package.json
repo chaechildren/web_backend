@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/app.js",
+    "postbuild": "ls && cd app && ls",
     "start": "node ./src/app.js"
   },
   "dependencies": {
