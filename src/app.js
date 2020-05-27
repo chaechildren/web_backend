@@ -9,6 +9,11 @@ const app = express();
 const connect = require("./schema");
 connect();
 
+const cookieParser = require("cookie-parser"); //모듈설치
+const session = require("express-session"); //모듈 설치
+const pgSession = require("connect-pg-simple")(session); //모듈 설치
+const pgPool = require("./Connect/getPoolDB"); //connection pool
+
 //port 설정 || Views설정
 app.set("port", process.env.PORT || 4000);
 app.set("views", "src/views");
@@ -23,7 +28,26 @@ app.use(cors());
 app.use(morgan("dev")); //cli로 로그남김
 app.use(bodyParser.urlencoded({ extended: true })); // req.body 사용목적
 app.use(bodyParser.json());
-//router 설정
+//admin용 쿠키, 세션
+app.use(cookieParser());
+app.use(
+  session({
+    store: new pgSession({
+      pool: pgPool,
+      tableName: "admin_session",
+    }),
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, //30 days
+  })
+);
+
+//router admin 설정
+const adminRouter = require("./routes/admin");
+app.use("/admin", adminRouter);
+
+//router v1 설정
 const homeRouter = require("./routes/v1/home");
 const arduinoRouter = require("./routes/v1/arduino");
 const phoneRouter = require("./routes/v1/phone");

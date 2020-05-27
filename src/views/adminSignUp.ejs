@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/adminSignUp.css" />
+    <title>Admin SignUp Page</title>
+</head>
+
+<body class="align">
+    <script language=javascript>
+        
+    </script>
+  <div class="site__container">
+
+    <div class="grid__container">
+        
+      <form action="/admin/signUP" method="post" class="form form--signUp">
+        <div class="form__header">
+            <h1>Admin Sign UP</h1>
+        </div>
+        <div class="form__field">
+          <label class="fontawesome-user" for="signUp__username"><span class="hidden">Username</span></label>
+          <input name="id" id="signUp__username" type="email" class="form__input" placeholder="your_email@gmail.com" required >
+        </div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="signUp__password"><span class="hidden">Password</span></label>
+          <input name="password" id="signUp__password" type="password" class="form__input" placeholder="Password" required>
+        </div>
+        <div class="form__field">
+            <label class="fontawesome-ok-sign" for="signUp__passwordCheck"><span class="hidden">PasswordCheck</span></label>
+            <input name="passwordCheck" id="signUp__passwordCheck" type="password" class="form__input" placeholder="Password check" required>
+        </div>
+        <div class="form__field">
+            <label class="fontawesome-github-alt" for="signUp__nickname"><span class="hidden">nickname</span></label>
+            <input name="name" id="signUp__nickname" type="text" class="form__input" placeholder="Nickname" required>
+        </div>
+        <div class="form__field">
+            <label class="fontawesome-star" for="signUp__adminCode"><span class="hidden">adminCode</span></label>
+            <input name="adminCode" id="signUp__adminCode" type="password" class="form__input" placeholder="Insert Our Admin code" required>
+        </div>
+        <div class="form__field">
+          <input type="submit" value="Sign UP">
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+</body>
+</html>

@@ -17,14 +17,21 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "connect-pg-simple": "^6.1.0",
     "cors": "^2.8.5",
+    "date-utils": "^1.2.21",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
-    "ngrok": "^3.2.7"
+    "ngrok": "^3.2.7",
+    "pg": "^8.2.1",
+    "server": "^1.0.27",
+    "session-file-store": "^1.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/admin.css" />
+    <title>Admin Page</title>
+  </head>
+  <body>
+    <script type="text/javascript"> 
+    //뒤로 가기로 못 오게 막음(임시)-사파리에서 가능
+        function noBack(){window.history.forward();}
+        noBack();
+        window.onload=noBack;
+        window.onpageshow=function(evt){if(evt.persisted)noBack();}
+        window.onunload=function(){void(0);}
+        function rowAdd(){
+            var userTableRow=document.getElementById("userTable").insertRow();
+            //id
+            var cell_id=userTableRow.insertCell();
+            cell_id.innerHTML="<input type='text' id='cellId'/>";
+            //email
+            var cell_email=userTableRow.insertCell();
+            cell_email.innerHTML="<input type='text' id='cellEmail'/>";
+            //name
+            var cell_name=userTableRow.insertCell();
+            cell_name.innerHTML="<input type='text' id='cellName'/>";
+            //password
+            var cell_password=userTableRow.insertCell();
+            cell_password.innerHTML="<input type='text' id='cellPassword'/>";
+            //추가
+            var cell_add=userTableRow.insertCell();
+            cell_add.innerHTML="<input type='button' value='추가' id='addUser' onclick='addUser(this)'/>";
+        }
+        function addUser(object){
+            var user_row=object.parentNode.parentNode;
+            var user_info=user_row.childNodes;
+            const user_id=user_info[0].firstChild.value;
+            const user_email=user_info[1].firstChild.value;
+            const user_name=user_info[2].firstChild.value;
+            const user_password=user_info[3].firstChild.value;
+            if(checkAdd(user_id,user_email,user_name,user_password)){
+                addUserToDB(user_id,user_email,user_name,user_password);
+                changeRow(user_row,user_id,user_email,user_name,user_password);
+            }
+        }
+        function checkAdd(id,email,name,password){
+            //구현해야함
+            if(id==""||email==""||name==""||password==""){
+                alert("모든 값을 입력하시오.")
+                return false;
+            }
+            return true;
+        }
+        function addUserToDB(id,email,name,password){
+            //구현해야함
+        }
+        function changeRow(row,id,email,name,password){
+            var cells=row.childNodes;
+            cells[0].innerHTML=id; 
+            cells[1].innerHTML=email;
+            cells[2].innerHTML=name;
+            cells[3].innerHTML=password;
+            cells[4].innerHTML="<input type='button' value='Delete' onclick='deleteUser(this)'>"
+        }
+        function deleteUser(object){
+            var user_row=object.parentNode.parentNode;
+            const user_id=user_row.cells[0].innerHTML.trim();
+            var user_body=user_row.parentNode;
+            if(confirm("정말로 삭제하시겠습니까?")){
+                deleteUserFromDB(user_id);
+                user_body.deleteRow(user_row.rowIndex-2);
+            }
+        }
+        function deleteUserFromDB(id){
+            //구현해야함
+        }
+    </script>
+
+    
+    <div class="header">
+      <h1 class="page_header">Admin Page</h1> 
+        <div style="font-size: 20px;">Welcome,<%=name%> 
+        <p class="logout"><a href="/admin/logout">Logout</a> <span class="fontawesome-remove-sign"></span></p>
+        </div>
+    </div>
+    <hr>
+    
+    <div>
+        
+        <table border="5", class="connect">
+            <tr>
+                <td class="table_title" colspan="5"><strong>Arduino - User Connection</strong></td>
+            </tr>
+            <colgroup>
+                <col class="arduino"/>
+                <col class="email"/>
+                <col class="name"/>
+                <col class="password"/>
+                <col class="add_button"/>
+            </colgroup>
+            
+           <th class="table_head" >Arduino</th>
+           <th class="table_head" >Email</th>
+           <th class="table_head" >Name</th>
+           <th class="table_head" >Password</th>
+           <th class="table_head" ><input type="button" value="+" onclick="rowAdd()"></th>
+           <tbody id="userTable" class="table_body">
+           <%for(let i=0;i<data.length;i++){%>
+           <tr class="table_row">
+               <td class="table_data">
+                    <%=data[i].id%>
+               </td>
+               <td class="table_data">
+                    <%=data[i].email%>
+               </td>
+               <td class="table_data">
+                    <%=data[i].name%>
+               </td>
+               <td class="table_data">
+                    <%=data[i].password%>
+               </td>
+               <td class="table_data">
+                   <input type="button" value="Delete" onclick="deleteUser(this)">
+               </td>
+           </tr>
+           <%}%> 
+            </tbody>
+        </table>
+    </div>
+    <hr width="1500px">
+    <div>
+        <table border="5", class="state">
+            <tr>
+                <td class="table_title" colspan="3"><strong>State Data</strong></td>
+            </tr>
+            <colgroup>
+                <col class="arduino_id"/>
+                <col class="humidity"/>
+                <col class="temp"/>
+            </colgroup>
+           <th class="table_head" >Arduino Id</th>
+           <th class="table_head" >Humidity</th>
+           <th class="table_head" >Temperature</th>
+           <tbody class="table_body">
+           <tr class="table_row">
+               <td class="table_data">
+                   1
+               </td>
+               <td class="table_data">
+                   30
+               </td>
+               <td class="table_data">
+                   20
+               </td>
+           </tr>
+           
+            </tbody>    
+        </table>
+    </div>
+  </body>
+</html>
+
+

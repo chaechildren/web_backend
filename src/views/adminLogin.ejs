@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/adminLogin.css" />
+    <title>Admin login</title>
+</head>
+
+<body class="align">
+    <script type="text/javascript">
+        var err="<%=err%>";
+        if(err!=""){
+            alert(err);
+        }
+    </script>
+  <div class="site__container">
+
+    <div class="grid__container">
+        
+      <form action="/admin/login" method="post" class="form form--login">
+        <div class="form__header">
+            <h1>Admin Login</h1>
+        </div>
+        <div class="form__field">
+          <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
+          <input name="id" id="login__username" type="email" class="form__input" placeholder="your_email@gmail.com" required <%if(locals.saveID!='j:null'){%>value=<%=saveID%><%}%>>
+        </div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="login__password"><span class="hidden">Password</span></label>
+          <input name="password" id="login__password" type="password" class="form__input" placeholder="Password" required>
+        </div>
+        <div class="form__field" >
+            <label ><input type="checkbox" name="saveID" value="save" class="form__input" <%if(locals.saveCheck=='true'){%>checked="checked"<%}%>>Remember Me</label>
+        </div>
+        <div class="form__field">
+          <input type="submit" value="Log In">
+        </div>
+
+      </form>
+
+      <p class="text--center">Not a member? <a href="/admin/signUP">Sign up now</a> <span class="fontawesome-arrow-right"></span></p>
+
+    </div>
+
+  </div>
+
+
+</body>
+</html>
