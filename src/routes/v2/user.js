@@ -38,7 +38,7 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   const { ID, PW, CONFIRMPW } = req.body;
-  //
+  
   if (ID.length === 0 || PW.length === 0 || CONFIRMPW.length === 0) {
     res.json({ resultCode: 300, msg: "empty parameter sent " });
   }

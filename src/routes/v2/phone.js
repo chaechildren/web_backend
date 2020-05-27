@@ -30,10 +30,8 @@ router.get("/data/:id", async (req, res, next) => {
 router.post("/connect", async (req, res, next) => {
   const { arduino_id, user_id } = req.body;
   try {
-    const _user = await User.findOne({ ID: user_id });
     const _arduino = await Arduino.findOne({ ID: arduino_id });
-    console.log(arduino_id, user_id);
-    console.log("Alredy ardlist", _user.ARD_LIST);
+    const _user = await User.findOne({ ID: user_id });
     await Arduino.update({ ID: arduino_id }, { user: _user._id });
     await User.update(
       { ID: user_id },

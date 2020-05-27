@@ -2,12 +2,20 @@ const express = require("express");
 const router = express.Router();
 const Data = require("../../schema/Data");
 const Arduino = require("../../schema/Arduino");
+
+// 등록된 Arduino List 연결관계 All Show
+router.get("/registered", async (req, res, next) => {
+  const registeredArd = await Arduino.find({ user: !null });
+  console.log(registeredArd);
+  res.json({ ardLIst: registeredArd });
+});
+
 //Unregistered Arduino List 다 보내는 것
 router.get("/unregistered", async (req, res, next) => {
   //DB에서 데이터 받아와야함
   const unregisteredArd = await Arduino.find({ user: null });
   console.log("unregistered", unregisteredArd);
-  res.json({ ardList: unregisteredArd });
+  res.json({ ardList: unregisteredArd });1
 });
 
 //Arduino 등록 router
