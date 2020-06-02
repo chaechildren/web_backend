@@ -6,13 +6,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 //DB  연결
-const connect = require("./schema");
+const connect = require("./src/schema");
 connect();
 
 const cookieParser = require("cookie-parser"); //모듈설치
 const session = require("express-session"); //모듈 설치
 const pgSession = require("connect-pg-simple")(session); //모듈 설치
-const pgPool = require("./Connect/getPoolDB"); //connection pool
+const pgPool = require("./src/Connect/getPoolDB"); //connection pool
 //port 설정 || Views설정
 app.set("port", process.env.PORT || 4000);
 app.set("views", "src/views");
@@ -43,19 +43,19 @@ app.use(
 );
 
 //router admin 설정
-const adminRouter = require("./routes/admin");
+const adminRouter = require("./src/routes/admin");
 app.use("/admin", adminRouter);
 
 //router v1 설정
-const homeRouter = require("./routes/v1/home");
-const arduinoRouter = require("./routes/v1/arduino");
-const phoneRouter = require("./routes/v1/phone");
+const homeRouter = require("./src/routes/v1/home");
+const arduinoRouter = require("./src/routes/v1/arduino");
+const phoneRouter = require("./src/routes/v1/phone");
 app.use("/", homeRouter);
 app.use("/arduino", arduinoRouter);
 app.use("/phone", phoneRouter);
 
 //router v2 설정
-const v2Router = require("./routes/v2");
+const v2Router = require("./src/routes/v2");
 app.use("/v2", v2Router);
 
 //Server Start
