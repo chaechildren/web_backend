@@ -12,7 +12,7 @@ connect();
 const cookieParser = require("cookie-parser"); //모듈설치
 const session = require("express-session"); //모듈 설치
 const pgSession = require("connect-pg-simple")(session); //모듈 설치
-const pgPool = require("./src/Connect/GetPoolDB"); //connection pool
+const pgPool = require("./src/Connect/getPoolDB"); //connection pool
 //port 설정 || Views설정
 app.set("port", process.env.PORT || 4000);
 app.set("views", "src/views");

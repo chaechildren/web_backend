@@ -1,9 +1,9 @@
 const express = require("express");
 const Data = require("../schema/Data");
 const router = express.Router();
-const insert = require("../ManipulateDB/InsertDB");
-const query = require("../ManipulateDB/QueryDB");
-const update = require("../ManipulateDB/UpdateDB");
+const insert = require("../ManipulateDB/insertDB");
+const query = require("../ManipulateDB/queryDB");
+const update = require("../ManipulateDB/updateDB");
 const bcrypt = require("bcryptjs"); //모듈 설치
 const url = require("url");
 const server = require("server");
