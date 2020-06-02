@@ -6,9 +6,8 @@
   "author": "brokentime906 <brokentime906@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "postbuild": "ls && cd app && ls",
-    "start": "node ./src/app.js"
+    "dev": "nodemon ./app",
+    "start": "node ./app"
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
