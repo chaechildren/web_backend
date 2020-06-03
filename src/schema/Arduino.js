@@ -9,6 +9,8 @@ const ArduinoSchema = new Schema({
     type: ObjectId,
     ref: "User",
   },
+  limitUpper: String,
+  limitLower: String,
 });
 
 module.exports = mongoose.model("Arduino", ArduinoSchema, "Arduino");

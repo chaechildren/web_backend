@@ -42,7 +42,7 @@ app.use(
   })
 );
 
-//router admin 설정
+//router admin 설정 git commit 설정
 const adminRouter = require("./src/routes/admin");
 app.use("/admin", adminRouter);
 

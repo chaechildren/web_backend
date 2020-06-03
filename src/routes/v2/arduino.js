@@ -3,6 +3,14 @@ const router = express.Router();
 const Data = require("../../schema/Data");
 const Arduino = require("../../schema/Arduino");
 
+router.get("/sendData", async (req, res, next) => {
+  const { temp, humi, mac } = req.query;
+  console.group("Arduino");
+  console.log(temp, humi, mac);
+  console.groupEnd();
+  const temptemp = 12;
+  res.send(`${temptemp}`);
+});
 // 등록된 Arduino List 연결관계 All Show
 router.get("/registered", async (req, res, next) => {
   const registeredArd = await Arduino.find({ user: !null });
