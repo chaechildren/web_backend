@@ -48,13 +48,18 @@ router.get("/data/:id", async (req, res, next) => {
 router.post("/temp/:id", async (req, res, next) => {
   const arduino_id = req.params.id;
   try {
-    const { temp } = req.body;
-    const targetArd = await Arduino.findOne({ ID: arduino_id });
-    console.log(targetArd._id);
-    const newData = await Arduino.update({ _id: targetArd._id }, { temp });
-    res.json({ msg: "값 변화 성공하였습니다" });
+    const { ardID, humidity } = req.body;
+    console.log("reqbody", req.body);
+    // console.log(temp);
+    const targetArd = await Arduino.findOne({ ID: ardID });
+    console.log("target_ID", targetArd);
+    // targetArd.humidity = humidity;
+    // await targetArd.save();
+    await Arduino.update({ _id: targetArd._id }, { temp: humidity });
+    // console.log(newData, "newData");
+    res.json({ resultCode: 200, msg: "값 변화 성공하였습니다" });
   } catch (e) {
-    res.json({ msg: "값 변경 실패하였습니다." });
+    res.json({ resultCode: 300, msg: "값 변경 실패하였습니다." });
   }
 });
 
