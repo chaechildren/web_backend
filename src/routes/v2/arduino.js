@@ -7,9 +7,14 @@ router.get("/sendData", async (req, res, next) => {
   const { temp, humi, mac } = req.query;
   console.group("Arduino");
   console.log(temp, humi, mac);
+  const exsits = await Arduino.exists({ ID: mac });
+  if (!exists) {
+    const newArduino = new Arduino({ ID: mac, user: null, temp: "21" }); //21도로 기본 설정
+    await newArduino.save();
+  }
+  const 아두이노 = await Arduino.findOne({ ID: mac });
   console.groupEnd();
-  const temptemp = 12;
-  res.send(`${temptemp}`);
+  res.send(`${아두이노.temp}`);
 });
 // 등록된 Arduino List 연결관계 All Show
 router.get("/registered", async (req, res, next) => {

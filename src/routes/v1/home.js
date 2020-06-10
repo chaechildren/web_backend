@@ -1,9 +1,28 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../../schema/User");
+const url = require("url");
 const router = express.Router();
 router.get("/", async (req, res, next) => {
-  res.render("home", { test: "It works" });
+  if (req.session.isLogined) {
+    const datas = [
+      { id: 1, email: "abc", name: "kim", password: "123" },
+      { id: 2, email: "zxc", name: "lee", password: "qwe" },
+      { id: 3, email: "shw", name: "park", password: "1q2w3e4r" },
+    ];
+    res.render("admin", { data: datas, name: req.session.name });
+  } else {
+    res.redirect(
+      url.format({
+        pathname: "/admin/login",
+        query: {
+          err: null,
+          saveID: req.cookies.savedID,
+          saveCheck: req.cookies.savedCheck,
+        },
+      })
+    );
+  }
 });
 
 router.post("/login", async (req, res, next) => {

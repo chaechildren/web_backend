@@ -45,16 +45,17 @@ router.get("/data/:id", async (req, res, next) => {
   res.json(processed_data);
 });
 
-
-router.post("/setTemp:id",async (req, res, next) => {
+router.post("/temp/:id", async (req, res, next) => {
   const arduino_id = req.params.id;
-  const {temp}= req.body;
-  const targetArd = await Arduino.findOne({ ID: arduino_id });
-  console.log(targetArd._id);
-  const newData = await Arduino.update({targetArd._id},{  })
-  // const 
-  // res.json(processed_data);
-  res.json(hi:"Hi");
+  try {
+    const { temp } = req.body;
+    const targetArd = await Arduino.findOne({ ID: arduino_id });
+    console.log(targetArd._id);
+    const newData = await Arduino.update({ _id: targetArd._id }, { temp });
+    res.json({ msg: "값 변화 성공하였습니다" });
+  } catch (e) {
+    res.json({ msg: "값 변경 실패하였습니다." });
+  }
 });
 
 module.exports = router;

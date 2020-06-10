@@ -11,6 +11,7 @@ const ArduinoSchema = new Schema({
   },
   limitUpper: String,
   limitLower: String,
+  temp: String,
 });
 
 module.exports = mongoose.model("Arduino", ArduinoSchema, "Arduino");
