@@ -8,7 +8,8 @@ router.get("/sendData", async (req, res, next) => {
   console.group("Arduino");
   console.log(temp, humi, mac);
   const exsits = await Arduino.exists({ ID: mac });
-  if (!exists) {
+  if (!exsits) {
+    Arduino.exists;
     const newArduino = new Arduino({ ID: mac, user: null, temp: "21" }); //21도로 기본 설정
     await newArduino.save();
   }
