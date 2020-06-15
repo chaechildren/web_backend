@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../../schema/User");
-
+const middlewares = require("../../controllers/middlewares");
 router.get("/", async (req, res, next) => {
   const allUser = await User.find({});
   res.json({ userList: allUser });
@@ -38,18 +38,18 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   const { ID, PW, CONFIRMPW } = req.body;
-  
-  if (ID.length === 0 || PW.length === 0 || CONFIRMPW.length === 0) {
+
+  if (middlewares.isSignUpFormEmpty(ID, PW, CONFIRMPW)) {
     res.json({ resultCode: 300, msg: "empty parameter sent " });
   }
-  if (PW.length < 4) {
+  if (middlewares.isPasswordShort(PW)) {
     res.json({
       resultCode: 302,
       msg: "회원가입 실패 , 비밀번호가 너무 짧습니다",
     });
   }
   try {
-    if (PW === CONFIRMPW) {
+    if (middlewares.doesPasswordMatch(PW, CONFIRMPW)) {
       const hashPW = await bcrypt.hash(PW, 12);
       await User.create({
         ID: ID,
