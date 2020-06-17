@@ -11,11 +11,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
     "babel-core": "^6.26.3",
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
