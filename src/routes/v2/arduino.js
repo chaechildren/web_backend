@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const chalk = require("chalk");
 const Data = require("../../schema/Data");
 const Arduino = require("../../schema/Arduino");
 
 router.get("/sendData", async (req, res, next) => {
   const { temp, humi, mac } = req.query;
   console.group("Arduino");
-  console.log(temp, humi, mac);
+
   const exsits = await Arduino.exists({ ID: mac });
   if (!exsits) {
     Arduino.exists;
@@ -14,8 +15,26 @@ router.get("/sendData", async (req, res, next) => {
     await newArduino.save();
   }
   const 아두이노 = await Arduino.findOne({ ID: mac });
+  //temp가 더 높다면  red 낮으면 blue
+  console.log(temp, humi, mac);
+  const _temp =
+    아두이노.temp < temp
+      ? chalk.bgRed(
+          `비정상 온도 감지 : 현재온도는 ${temp} , 설정된 온도 : ${아두이노.temp}`
+        )
+      : temp;
+  const _mac = chalk.green(mac);
+  console.log(_temp, humi, _mac);
   console.groupEnd();
-  res.send(`${아두이노.temp}`);
+
+  const newData = new Data({
+    arduino_id: 아두이노._id,
+    humidity: temp,
+  });
+  await newData.save();
+  console.log("newData", newData);
+
+  res.send(`${아두이노.temp}0`);
 });
 // 등록된 Arduino List 연결관계 All Show
 router.get("/registered", async (req, res, next) => {

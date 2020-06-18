@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Arduino = require("../../schema/Arduino");
 const bcrypt = require("bcrypt");
 const User = require("../../schema/User");
 const middlewares = require("../../controllers/middlewares");
@@ -17,12 +18,13 @@ router.post("/login", async (req, res, next) => {
     if (exUser) {
       const isCorrectPassword = await bcrypt.compare(PW, exUser.PW); // bcrypt 암호화 결과 비교
       if (isCorrectPassword) {
+        const ardList = await Arduino.find({ user: exUser._id });
         //비밀번호 일치
         res.json({
           resultCode: 200,
           msg: "로그인에 성공하였습니다",
           email: ID,
-          arduino: [],
+          arduino: ardList, //아두이노 리스트 등록된
         });
       } else {
         res.json({ resultCode: 301, msg: "비밀번호가 일치하지 않습니다" });
