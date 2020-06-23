@@ -8,6 +8,7 @@ const DataSchema = new Schema({
     type: ObjectId,
     ref: "Arduino",
   },
+  humi: String,
   createdAt: {
     type: Date,
     default: Date.now,

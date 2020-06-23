@@ -29,18 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // req.body 사용목적
 app.use(bodyParser.json());
 //admin용 쿠키, 세션
 app.use(cookieParser());
-app.use(
-  session({
-    store: new pgSession({
-      pool: pgPool,
-      tableName: "admin_session",
-    }),
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, //30 days
-  })
-);
 
 //router admin 설정 git commit 설정
 const adminRouter = require("./src/routes/admin");

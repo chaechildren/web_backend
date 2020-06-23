@@ -78,6 +78,7 @@ router.get("/data/:id", async (req, res, next) => {
     time: data.createdAt,
     origin: data.createdAt,
     humidity: data.humidity,
+    humi: data.humi,
   }));
   res.json(processed_data);
 });

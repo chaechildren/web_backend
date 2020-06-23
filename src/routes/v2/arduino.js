@@ -3,7 +3,7 @@ const router = express.Router();
 const chalk = require("chalk");
 const Data = require("../../schema/Data");
 const Arduino = require("../../schema/Arduino");
-
+const saveData = require("../../MethodDB/saveData");
 router.get("/sendData", async (req, res, next) => {
   const { temp, humi, mac } = req.query;
   console.group("Arduino");
@@ -24,17 +24,18 @@ router.get("/sendData", async (req, res, next) => {
         )
       : temp;
   const _mac = chalk.green(mac);
+  await saveData({ arduino_id: mac, temp, humidity: humi });
   console.log(_temp, humi, _mac);
   console.groupEnd();
 
   const newData = new Data({
     arduino_id: 아두이노._id,
     humidity: temp,
+    humi,
   });
   await newData.save();
   console.log("newData", newData);
-
-  res.send(`${아두이노.temp}0`);
+  res.send(`temp=${아두이노.temp}0`);
 });
 // 등록된 Arduino List 연결관계 All Show
 router.get("/registered", async (req, res, next) => {

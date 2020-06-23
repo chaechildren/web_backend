@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Arduino = require("../../schema/Arduino");
 const bcrypt = require("bcrypt");
+const chalk = require("chalk");
+
 const User = require("../../schema/User");
 const middlewares = require("../../controllers/middlewares");
 router.get("/", async (req, res, next) => {
@@ -10,7 +12,6 @@ router.get("/", async (req, res, next) => {
 });
 router.post("/login", async (req, res, next) => {
   // console.log(req);
-
   console.log(req.body);
   const { ID, PW } = req.body;
   try {
@@ -40,18 +41,19 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   const { ID, PW, CONFIRMPW } = req.body;
-
-  if (middlewares.isSignUpFormEmpty(ID, PW, CONFIRMPW)) {
-    res.json({ resultCode: 300, msg: "empty parameter sent " });
-  }
-  if (middlewares.isPasswordShort(PW)) {
-    res.json({
-      resultCode: 302,
-      msg: "회원가입 실패 , 비밀번호가 너무 짧습니다",
-    });
-  }
+  console.log(chalk.greenBright("사용자 회원가입 기능 "));
   try {
-    if (middlewares.doesPasswordMatch(PW, CONFIRMPW)) {
+    if (await middlewares.isSignUpFormEmpty(ID, PW, CONFIRMPW)) {
+      res.json({ resultCode: 300, msg: "empty parameter sent " });
+    }
+    if (await middlewares.isPasswordShort(PW)) {
+      res.json({
+        resultCode: 302,
+        msg: "회원가입 실패 , 비밀번호가 너무 짧습니다",
+      });
+    }
+
+    if (await middlewares.doesPasswordMatch(PW, CONFIRMPW)) {
       const hashPW = await bcrypt.hash(PW, 12);
       await User.create({
         ID: ID,
@@ -66,7 +68,7 @@ router.post("/register", async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.json({ resultCode: 300, msg: "회원가입 실패" });
   }
   res.json({ resultCode: 310, msg: "이건 생기면안됨" });
